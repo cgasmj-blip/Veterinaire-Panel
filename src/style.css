@@ -63,3 +63,6 @@
   .sidebar-foot{display:block;margin-top:0;padding:4px 12px;font-weight:700}
   .sidebar nav{scrollbar-width:thin}
 }
+
+
+.medical-list{display:grid;gap:10px;margin-top:24px}.medical-entry{display:flex;align-items:center;justify-content:space-between;gap:16px;border:1px solid #e2ebdb;border-radius:12px;padding:16px}.medical-entry p{margin:6px 0 0;color:#7e947a;font-size:13px}.medical-entry button{display:flex;align-items:center;gap:7px;border:0;border-radius:9px;background:#e7f2dc;color:#365c38;padding:10px;cursor:pointer}.medical-modal{width:min(760px,100%)}.medical-help{font-size:13px;color:#829482}.medical-choices{margin:18px 0}.medical-choices>strong{font-size:13px;color:#4c704b}.medical-choices>div{display:flex;flex-wrap:wrap;gap:9px;margin-top:9px}.medical-choices label{display:flex;align-items:center;gap:6px;padding:8px 11px;border-radius:9px;background:#f0f7ea;font-size:12px;color:#476e47;cursor:pointer}.medical-choices input{accent-color:#669a56}.medical-modal .patient-field{margin-top:12px}.medical-modal .patient-field textarea{border:1px solid #dce9d6;border-radius:9px;padding:11px;font:inherit;resize:vertical}
