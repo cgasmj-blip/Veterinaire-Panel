@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PawPrint, LayoutDashboard, Users, CalendarDays, ClipboardList, BedDouble, Pill, FlaskConical, Receipt, Package, ChartColumn, Settings, ShieldAlert } from "lucide-react";
 
 const sections = [
@@ -17,10 +17,31 @@ const sections = [
 
 export default function App() {
   const [selected, setSelected] = useState("Tableau de bord");
+  const [access, setAccess] = useState<"checking" | "granted" | "denied">("checking");
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.hash.slice(1));
+    const ticket = params.get("ticket");
+    window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    if (!ticket) { setAccess("denied"); return; }
+    let active = true;
+    fetch("https://pvahrnrtivzbkipborcd.supabase.co/functions/v1/veterinary-consume", {
+      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ticket }),
+    }).then(response => { if (active) setAccess(response.ok ? "granted" : "denied"); })
+      .catch(() => { if (active) setAccess("denied"); });
+    return () => { active = false; };
+  }, []);
+  if (access !== "granted") return <div style={{minHeight:"100vh",display:"grid",placeItems:"center",background:"#f5faef",color:"#365c38",fontFamily:"system-ui"}}>
+    <div style={{textAlign:"center",maxWidth:440,padding:28}}>
+      <PawPrint size={44} />
+      <h1>{access === "checking" ? "Vérification de l’accès…" : "403 — Accès refusé"}</h1>
+      <p>{access === "checking" ? "Validation de votre entrée depuis EMS." : "Ouvrez le panel depuis le bouton patte de chien de votre interface EMS, avec le grade V.U."}</p>
+      <a href="https://cgasmj-blip.github.io/EMS-Panel/" style={{color:"#365c38",fontWeight:700}}>Retour EMS</a>
+    </div>
+  </div>;
   return <div className="layout">
     <aside className="sidebar"><div className="brand"><PawPrint size={29}/><div><strong>Vétérinaire</strong><small>Interface de soins</small></div></div>
       <nav>{sections.map(({name,icon:Icon})=><button key={name} className={selected===name?"active":""} onClick={()=>setSelected(name)}><Icon size={19}/>{name}</button>)}</nav>
-      <div className="sidebar-foot">Panel vétérinaire · V.U.</div>
+      <div className="sidebar-foot"><a href="https://cgasmj-blip.github.io/EMS-Panel/">← Retour EMS</a><br/>Panel vétérinaire · V.U.</div>
     </aside>
     <main><header><div><span className="eyebrow">ESPACE VÉTÉRINAIRE</span><h1>{selected}</h1><p>Gestion des soins et du suivi des animaux</p></div><div className="avatar"><PawPrint size={23}/></div></header>
       <div className="warning"><ShieldAlert size={21}/><div><strong>Interface de préparation — accès non activé</strong><p>La connexion sécurisée depuis EMS et le contrôle du rôle Discord V.U. doivent être déployés avant utilisation réelle. Aucune donnée médicale n’est chargée.</p></div></div>
