@@ -8,8 +8,8 @@ const verifiedScans:Record<string,{url:string;source:string;credit:string}>={
  "chien/abdomen/echographie":{url:"https://commons.wikimedia.org/wiki/Special:FilePath/PDH_Dog_Sono.jpg",source:"https://commons.wikimedia.org/wiki/File:PDH_Dog_Sono.jpg",credit:"Kalumet · CC BY-SA / GFDL"},
  "chien/cou/echographie":{url:"https://commons.wikimedia.org/wiki/Special:FilePath/Parathyroid-adenoma-dog.jpg",source:"https://commons.wikimedia.org/wiki/File:Parathyroid-adenoma-dog.jpg",credit:"Uwe Gille · CC BY-SA 4.0"},
  "chat/thorax/radiographie":{url:"https://commons.wikimedia.org/wiki/Special:FilePath/Radiographie_thoracique_chez_un_chat.jpg",source:"https://commons.wikimedia.org/wiki/File:Radiographie_thoracique_chez_un_chat.jpg",credit:"Dr Tissier · CC BY-SA 4.0"},
- "chat/abdomen/echographie":{url:"https://commons.wikimedia.org/wiki/Special:FilePath/PKD_cat.jpg",source:"https://commons.wikimedia.org/wiki/File:PKD_cat.jpg",credit:"Wikimedia Commons · Voir licence source"},
- "chien/thorax/echographie":{url:"https://commons.wikimedia.org/wiki/Special:FilePath/B_m-mode1.jpg",source:"https://commons.wikimedia.org/wiki/File:B_m-mode1.jpg",credit:"Kalumet · Voir licence source"}
+ "chat/abdomen/echographie":{url:"https://commons.wikimedia.org/wiki/Special:FilePath/PKD_cat.jpg",source:"https://commons.wikimedia.org/wiki/File:PKD_cat.jpg",credit:"Kalumet · CC BY-SA 3.0"},
+ "chien/thorax/echographie":{url:"https://commons.wikimedia.org/wiki/Special:FilePath/B_m-mode1.jpg",source:"https://commons.wikimedia.org/wiki/File:B_m-mode1.jpg",credit:"Kalumet · licence indiquée à la source"}
 };
 const regions=[["tete","Tête"],["cou","Cou"],["dos","Dos"],["colonne","Colonne"],["thorax","Thorax"],["abdomen","Abdomen"],["bassin","Bassin"],["queue","Queue"],["membre_anterieur","Membre antérieur"],["membre_posterieur","Membre postérieur"]];
 type Entry={id:string;image_path?:string|null;title:string;details:string};
