@@ -23,3 +23,12 @@
 .patient-field input:focus,.patient-field select:focus{outline:2px solid #bcdba7}.patient-modal-footer{justify-content:flex-end;margin-top:25px}
 .patient-modal-footer>button:first-child{background:#f3f6f0;border:0;padding:11px 16px;border-radius:10px;cursor:pointer}
 @media(max-width:760px){.patient-module{padding:15px}.patient-toolbar{align-items:flex-start;flex-direction:column}.patient-row{flex-wrap:wrap}.patient-owner{flex-basis:35%}.patient-actions{margin-left:auto}.patient-form-grid{grid-template-columns:1fr}}
+
+
+.patient-symbol{width:48px;height:48px;display:grid;place-items:center;overflow:hidden;flex-shrink:0}
+.patient-avatar{width:48px;height:48px;object-fit:cover;border-radius:12px}
+.patient-photo-drop{display:flex;align-items:center;gap:18px;background:#f5faef;border:1px dashed #afcba0;border-radius:13px;padding:16px;margin-bottom:20px;color:#587d50}
+.patient-photo-drop:focus{outline:2px solid #9dc58a}.patient-photo-drop p{font-size:12px;line-height:1.5;color:#7a9074;margin:6px 0 10px}
+.patient-photo-preview{width:90px;height:90px;object-fit:cover;border-radius:12px;flex-shrink:0}
+.patient-file-label{display:inline-block;background:#d5e9bc;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;color:#365c38}
+.patient-file-label input{display:none}
