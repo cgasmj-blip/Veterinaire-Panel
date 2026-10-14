@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Patients from "./Patients";
 import Appointments from "./Appointments";
 import MedicalRecords from "./MedicalRecords";
+import {Billing,TariffSettings} from "./VetBillingTrauma";
 import { PawPrint, LayoutDashboard, Users, CalendarDays, ClipboardList, BedDouble, Pill, FlaskConical, Receipt, Package, ChartColumn, Settings, ShieldAlert } from "lucide-react";
 
 const sections = [
@@ -47,9 +48,9 @@ export default function App() {
       <div className="sidebar-foot"><a href="https://cgasmj-blip.github.io/EMS-Panel/#/dashboard">← Retour EMS</a><br/>Panel vétérinaire · V.U.</div>
     </aside>
     <main><header><div><span className="eyebrow">ESPACE VÉTÉRINAIRE</span><h1>{selected}</h1><p>Gestion des soins et du suivi des animaux</p></div><div className="avatar"><PawPrint size={23}/></div></header>
-      {!["Patients","Rendez-vous","Dossiers médicaux"].includes(selected) && <div className="warning"><ShieldAlert size={21}/><div><strong>Interface de préparation — accès non activé</strong><p>La connexion sécurisée depuis EMS et le contrôle du rôle Discord V.U. doivent être déployés avant utilisation réelle. Aucune donnée médicale n’est chargée.</p></div></div>}
+      {!["Patients","Rendez-vous","Dossiers médicaux","Facturation","Paramètres"].includes(selected) && <div className="warning"><ShieldAlert size={21}/><div><strong>Interface de préparation — accès non activé</strong><p>La connexion sécurisée depuis EMS et le contrôle du rôle Discord V.U. doivent être déployés avant utilisation réelle. Aucune donnée médicale n’est chargée.</p></div></div>}
       {!["Patients","Rendez-vous","Dossiers médicaux"].includes(selected) && <div className="cards"><article><span>Patients</span><strong>—</strong><small>En attente de connexion</small></article><article><span>Rendez-vous</span><strong>—</strong><small>En attente de connexion</small></article><article><span>Hospitalisations</span><strong>—</strong><small>En attente de connexion</small></article></div>}
-      {selected === "Patients" ? <Patients /> : selected === "Rendez-vous" ? <Appointments /> : selected === "Dossiers médicaux" ? <MedicalRecords /> : <section className="panel"><h2>{selected}</h2><p>Module prêt à être connecté aux données vétérinaires protégées de Supabase.</p><div className="empty"><PawPrint size={36}/><p>Les fonctionnalités seront activées après la mise en place de la passerelle sécurisée EMS → Vétérinaire.</p></div></section>}
+      {selected === "Patients" ? <Patients /> : selected === "Rendez-vous" ? <Appointments /> : selected === "Dossiers médicaux" ? <MedicalRecords /> : selected === "Facturation" ? <Billing /> : selected === "Paramètres" ? <TariffSettings /> : <section className="panel"><h2>{selected}</h2><p>Module prêt à être connecté aux données vétérinaires protégées de Supabase.</p><div className="empty"><PawPrint size={36}/><p>Les fonctionnalités seront activées après la mise en place de la passerelle sécurisée EMS → Vétérinaire.</p></div></section>}
     </main>
   </div>;
 }
