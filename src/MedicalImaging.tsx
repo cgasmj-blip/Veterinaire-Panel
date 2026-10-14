@@ -1,6 +1,6 @@
 import {useEffect,useState} from "react";
-const kinds=["Radiographie","Échographie","Scanner","IRM"] as const;
-const referenceImages:Record<string,string>={Radiographie:"radiographie",Échographie:"echographie",Scanner:"scanner",IRM:"irm"};
+const kinds=["Radiographie","Échographie"] as const;
+const referenceImages:Record<string,string>={Radiographie:"radiographie",Échographie:"echographie"};
 const speciesOptions=[["chien","Chien"],["chat","Chat"],["nac","NAC"],["autres","Autres"]];
 const regions=[["tete","Tête"],["cou","Cou"],["dos","Dos"],["colonne","Colonne"],["thorax","Thorax"],["abdomen","Abdomen"],["bassin","Bassin"],["queue","Queue"],["membre_anterieur","Membre antérieur"],["membre_posterieur","Membre postérieur"]];
 type Entry={id:string;image_path?:string|null;title:string;details:string};
