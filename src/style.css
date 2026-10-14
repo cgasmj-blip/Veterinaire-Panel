@@ -71,3 +71,13 @@
 .medical-template-list{margin-top:24px}.medical-template-list h3{margin:0 0 5px;color:#365c38;font-size:17px}.medical-template-list>p{font-size:13px;color:#829482;margin:0 0 15px}.medical-template-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.medical-template-grid button{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:10px;border:1px solid #dbead0;background:#f3f9ed;border-radius:13px;padding:17px;cursor:pointer;color:#365c38}.medical-template-grid button:hover{background:#e6f3da}.medical-template-grid button span{font-size:12px;color:#769074}.medical-template-grid button small{margin-top:auto;font-weight:700;color:#50844b}@media(max-width:760px){.medical-template-grid{grid-template-columns:1fr}}
 
 .patient-filters{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}.patient-filters button{border:1px solid #dbe9d3;background:#f8fbf5;color:#47664b;border-radius:999px;padding:9px 17px;cursor:pointer}.patient-filters button.active{background:#d5e9bc;border-color:#b5d59d;font-weight:700;color:#294a2f}.patient-filters+.patient-search{margin-top:13px}.patient-identity span{line-height:1.5}.patient-status{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;white-space:nowrap}.patient-status-alive{color:#37834c}.patient-life-bar{width:35px;height:8px;border-radius:9px;background:#61b779;border:1px solid #37934e}@media(max-width:850px){.patient-row{flex-wrap:wrap}.patient-identity{flex-basis:40%}.patient-owner{flex:1}.patient-status{margin-left:4px}}
+
+/* Indicateurs vitaux des patients */
+.patient-row-deceased{border:2px solid #d94f55!important;background:#fff7f7}
+.patient-status-deceased{color:#bb303b;font-weight:800;border:1px solid #f0b3b6;background:#fff0f0;padding:7px 10px;border-radius:9px}
+.patient-status-alive{display:flex;align-items:center;gap:9px;flex:0 1 250px;min-width:120px;color:#23864d}
+.patient-ecg{width:100%;min-width:70px;height:32px;overflow:visible}
+.patient-ecg polyline{fill:none;stroke:#2eae62;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:240 240;stroke-dashoffset:240;animation:patient-heartbeat 2.4s linear infinite;filter:drop-shadow(0 0 2px #58c98466)}
+@keyframes patient-heartbeat{0%{stroke-dashoffset:240;opacity:.4}12%{opacity:1}85%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:-20;opacity:0}}
+@media(prefers-reduced-motion:reduce){.patient-ecg polyline{animation:none;stroke-dashoffset:0}}
+@media(max-width:850px){.patient-status-alive{flex:1 1 160px}}
