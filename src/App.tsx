@@ -35,13 +35,13 @@ export default function App() {
       <PawPrint size={44} />
       <h1>{access === "checking" ? "Vérification de l’accès…" : "403 — Accès refusé"}</h1>
       <p>{access === "checking" ? "Validation de votre entrée depuis EMS." : "Ouvrez le panel depuis le bouton patte de chien de votre interface EMS, avec le grade V.U."}</p>
-      <a href="https://cgasmj-blip.github.io/EMS-Panel/" style={{color:"#365c38",fontWeight:700}}>Retour EMS</a>
+      <a href="https://cgasmj-blip.github.io/EMS-Panel/#/dashboard" style={{color:"#365c38",fontWeight:700}}>Retour EMS</a>
     </div>
   </div>;
   return <div className="layout">
     <aside className="sidebar"><div className="brand"><PawPrint size={29}/><div><strong>Vétérinaire</strong><small>Interface de soins</small></div></div>
       <nav>{sections.map(({name,icon:Icon})=><button key={name} className={selected===name?"active":""} onClick={()=>setSelected(name)}><Icon size={19}/>{name}</button>)}</nav>
-      <div className="sidebar-foot"><a href="https://cgasmj-blip.github.io/EMS-Panel/">← Retour EMS</a><br/>Panel vétérinaire · V.U.</div>
+      <div className="sidebar-foot"><a href="https://cgasmj-blip.github.io/EMS-Panel/#/dashboard">← Retour EMS</a><br/>Panel vétérinaire · V.U.</div>
     </aside>
     <main><header><div><span className="eyebrow">ESPACE VÉTÉRINAIRE</span><h1>{selected}</h1><p>Gestion des soins et du suivi des animaux</p></div><div className="avatar"><PawPrint size={23}/></div></header>
       <div className="warning"><ShieldAlert size={21}/><div><strong>Interface de préparation — accès non activé</strong><p>La connexion sécurisée depuis EMS et le contrôle du rôle Discord V.U. doivent être déployés avant utilisation réelle. Aucune donnée médicale n’est chargée.</p></div></div>
