@@ -50,3 +50,16 @@
 .vet-rdv>div:first-child{display:flex;flex-direction:column;gap:8px}.vet-rdv span{display:flex;align-items:center;gap:6px;font-size:12px;color:#819780}
 .vet-rdv-status{display:flex;align-items:center;gap:12px}.vet-rdv-status small{color:#6d8768}.vet-rdv-status select{border:1px solid #cbdcbe;border-radius:9px;padding:8px;background:#f7fbf4;color:#365c38}
 @media(max-width:760px){.vet-day{height:59px;padding:5px;font-size:12px}.vet-day small{font-size:9px}.vet-rdv{align-items:flex-start;flex-direction:column}.vet-rdv-status{width:100%;justify-content:space-between}}
+
+
+/* Keep veterinary navigation and the EMS return link visible while content scrolls. */
+@media(min-width:761px){
+  .layout>.sidebar{position:sticky;top:0;height:100dvh;flex:0 0 255px;overflow-y:auto;overscroll-behavior:contain}
+  .layout>main{min-height:100dvh}
+  .sidebar-foot{position:sticky;bottom:0;background:#eaf4df;padding-top:14px}
+}
+@media(max-width:760px){
+  .layout>.sidebar{position:sticky;top:0;z-index:40;background:#eaf4df;box-shadow:0 2px 10px #365c3810}
+  .sidebar-foot{display:block;margin-top:0;padding:4px 12px;font-weight:700}
+  .sidebar nav{scrollbar-width:thin}
+}
