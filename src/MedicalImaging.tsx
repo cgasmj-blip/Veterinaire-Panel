@@ -11,6 +11,8 @@ const verifiedScans:Record<string,{url:string;source:string;credit:string}>={
  "chat/abdomen/echographie":{url:"https://commons.wikimedia.org/wiki/Special:FilePath/PKD_cat.jpg",source:"https://commons.wikimedia.org/wiki/File:PKD_cat.jpg",credit:"Kalumet · CC BY-SA 3.0"},
  "chien/thorax/echographie":{url:"https://commons.wikimedia.org/wiki/Special:FilePath/B_m-mode1.jpg",source:"https://commons.wikimedia.org/wiki/File:B_m-mode1.jpg",credit:"Kalumet · licence indiquée à la source"}
 };
+verifiedScans["chien/membre_anterieur/radiographie"]={url:"https://commons.wikimedia.org/wiki/Special:FilePath/X-ray_dogs_paw_ml.jpg",source:"https://commons.wikimedia.org/wiki/File:X-ray_dogs_paw_ml.jpg",credit:"Bahnsen · CC BY 4.0"};
+verifiedScans["chat/thorax/radiographie"]={url:"https://commons.wikimedia.org/wiki/Special:FilePath/Radiografia-lateral-gato.jpg",source:"https://commons.wikimedia.org/wiki/File:Radiografia-lateral-gato.jpg",credit:"Aurelio A. Heckert · domaine public"};
 const regions=[["tete","Tête"],["cou","Cou"],["dos","Dos"],["colonne","Colonne"],["thorax","Thorax"],["abdomen","Abdomen"],["bassin","Bassin"],["queue","Queue"],["membre_anterieur","Membre antérieur"],["membre_posterieur","Membre postérieur"]];
 type Entry={id:string;image_path?:string|null;title:string;details:string};
 const root="https://pvahrnrtivzbkipborcd.supabase.co/functions/v1/veterinary-clinical";
