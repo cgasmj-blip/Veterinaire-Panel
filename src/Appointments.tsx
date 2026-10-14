@@ -1,5 +1,5 @@
 import {useEffect,useMemo,useState} from "react";
-import {CalendarDays,ChevronLeft,ChevronRight,Plus,Clock3,PawPrint,Search} from "lucide-react";
+import {CalendarDays,ChevronLeft,ChevronRight,Plus,PawPrint} from "lucide-react";
 type Patient={id:string;name:string;species:string;photo_path?:string|null};
 type Appointment={id:string;patient_id:string;starts_at:string;reason:string;status:string;veterinary_patients?:{name:string;species:string}|null};
 const base="https://pvahrnrtivzbkipborcd.supabase.co/functions/v1/";
