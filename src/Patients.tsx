@@ -36,6 +36,19 @@ export default function Patients(){
   const [unknownAge,setUnknownAge]=useState(false);
   const load=useCallback(async()=>{setLoading(true);setError("");try{const data=await request("GET");setPatients(data.patients||[]);}catch(e){setError(e instanceof Error?e.message:"Erreur de chargement");}finally{setLoading(false);}},[]);
   useEffect(()=>{void load();},[load]);
+  // Mise à jour silencieuse des patients créés ou modifiés par d'autres utilisateurs.
+  useEffect(()=>{
+    let running=false;
+    const sync=async()=>{
+      if(document.visibilityState!=="visible"||running)return;
+      running=true;
+      try{const data=await request("GET");setPatients(data.patients||[]);}catch{/* Conserver la dernière liste affichée en cas de problème réseau. */}finally{running=false;}
+    };
+    const timer=window.setInterval(()=>{void sync();},5000);
+    const onVisible=()=>{if(document.visibilityState==="visible")void sync();};
+    document.addEventListener("visibilitychange",onVisible);
+    return()=>{window.clearInterval(timer);document.removeEventListener("visibilitychange",onVisible);};
+  },[]);
   useEffect(()=>{
     let active=true;
     const token=getToken();
