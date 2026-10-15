@@ -5,7 +5,7 @@ import MedicalRecords from "./MedicalRecords";
 import VeterinaryDashboard from "./VeterinaryDashboard";
 import TraumaWorkspace from "./TraumaWorkspace";
 import {Billing,TariffSettings} from "./VetBillingTrauma";
-import { PawPrint, LayoutDashboard, Users, CalendarDays, ClipboardList, BedDouble, Pill, FlaskConical, Receipt, Package, ChartColumn, Settings, ShieldAlert } from "lucide-react";
+import { PawPrint, LayoutDashboard, Users, CalendarDays, ClipboardList, BedDouble, Receipt, Package, ChartColumn, Settings, ShieldAlert } from "lucide-react";
 
 const sections = [
   { name: "Tableau de bord", icon: LayoutDashboard },
@@ -14,8 +14,6 @@ const sections = [
   { name: "Dossiers médicaux", icon: ClipboardList },
   { name: "Traumatologie", icon: ShieldAlert },
   { name: "Hospitalisations", icon: BedDouble },
-  { name: "Traitements", icon: Pill },
-  { name: "Analyses", icon: FlaskConical },
   { name: "Facturation", icon: Receipt },
   { name: "Pharmacie & stock", icon: Package },
   { name: "Statistiques", icon: ChartColumn },
