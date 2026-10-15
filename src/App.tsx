@@ -26,13 +26,34 @@ export default function App() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.hash.slice(1));
     const ticket = params.get("ticket");
-    window.history.replaceState(null, "", window.location.pathname + window.location.search);
-    if (!ticket) { setAccess("denied"); return; }
+    if (ticket) window.history.replaceState(null, "", window.location.pathname + window.location.search);
     let active = true;
-    fetch("https://pvahrnrtivzbkipborcd.supabase.co/functions/v1/veterinary-consume", {
-      method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ticket }),
-    }).then(response => { if (active) setAccess(response.ok ? "granted" : "denied"); })
-      .catch(() => { if (active) setAccess("denied"); });
+    const endpoint = "https://pvahrnrtivzbkipborcd.supabase.co/functions/v1/";
+    const checkAccess = async () => {
+      try {
+        if (ticket) {
+          const response = await fetch(endpoint + "veterinary-consume", {
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ticket }),
+          });
+          if (!response.ok) throw Error("Accès EMS refusé");
+        } else {
+          // On refresh, revalidate the existing Supabase session server-side.
+          // Never grant access solely from a browser storage flag.
+          const stored = localStorage.getItem("sb-pvahrnrtivzbkipborcd-auth-token");
+          const token: unknown = stored ? JSON.parse(stored)?.access_token : null;
+          if (typeof token !== "string" || !token) throw Error("Session absente");
+          const response = await fetch(endpoint + "veterinary-patients", {
+            headers: { Authorization: "Bearer " + token },
+          });
+          if (!response.ok) throw Error("Session expirée ou accès refusé");
+        }
+        if (active) setAccess("granted");
+      } catch {
+        if (active) setAccess("denied");
+      }
+    };
+    void checkAccess();
     return () => { active = false; };
   }, []);
   if (access !== "granted") return <div style={{minHeight:"100vh",display:"grid",placeItems:"center",background:"#f5faef",color:"#365c38",fontFamily:"system-ui"}}>
