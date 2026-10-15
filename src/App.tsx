@@ -20,9 +20,17 @@ const sections = [
   { name: "Paramètres", icon: Settings },
 ];
 
+const accessKey = "veterinary-panel-verified";
+const pageKey = "veterinary-panel-page";
+function hasRecentAccess() {
+  try {
+    const token = JSON.parse(localStorage.getItem("sb-pvahrnrtivzbkipborcd-auth-token") || "null")?.access_token;
+    return typeof token === "string" && !!token && sessionStorage.getItem(accessKey) === "yes";
+  } catch { return false; }
+}
 export default function App() {
-  const [selected, setSelected] = useState("Tableau de bord");
-  const [access, setAccess] = useState<"checking" | "granted" | "denied">("checking");
+  const [selected, setSelected] = useState(() => { const saved = sessionStorage.getItem(pageKey); return sections.some(s => s.name === saved) ? saved! : "Tableau de bord"; });
+  const [access, setAccess] = useState<"checking" | "granted" | "denied">(() => hasRecentAccess() ? "granted" : "checking");
   useEffect(() => {
     const params = new URLSearchParams(window.location.hash.slice(1));
     const ticket = params.get("ticket");
@@ -48,9 +56,9 @@ export default function App() {
           });
           if (!response.ok) throw Error("Session expirée ou accès refusé");
         }
-        if (active) setAccess("granted");
+        if (active) { sessionStorage.setItem(accessKey, "yes"); setAccess("granted"); }
       } catch {
-        if (active) setAccess("denied");
+        if (active) { sessionStorage.removeItem(accessKey); setAccess("denied"); }
       }
     };
     void checkAccess();
@@ -66,7 +74,7 @@ export default function App() {
   </div>;
   return <div className="layout">
     <aside className="sidebar"><div className="brand"><PawPrint size={29}/><div><strong>Vétérinaire</strong><small>Interface de soins</small></div></div>
-      <nav>{sections.map(({name,icon:Icon})=><button key={name} className={selected===name?"active":""} onClick={()=>setSelected(name)}><Icon size={19}/>{name}</button>)}</nav>
+      <nav>{sections.map(({name,icon:Icon})=><button key={name} className={selected===name?"active":""} onClick={()=>{sessionStorage.setItem(pageKey,name);setSelected(name);}}><Icon size={19}/>{name}</button>)}</nav>
       <div className="sidebar-foot"><a href="https://cgasmj-blip.github.io/EMS-Panel/#/dashboard">← Retour EMS</a><br/>Panel vétérinaire · V.U.</div>
     </aside>
     <main><header><div><span className="eyebrow">ESPACE VÉTÉRINAIRE</span><h1>{selected}</h1><p>Gestion des soins et du suivi des animaux</p></div><div className="avatar"><PawPrint size={23}/></div></header>
