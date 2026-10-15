@@ -25,6 +25,24 @@ export default function MedicalRecords(){
  const [error,setError]=useState(""),[busy,setBusy]=useState(false),[loading,setLoading]=useState(true);
  const load=async()=>{setLoading(true);const results=await Promise.allSettled([api("veterinary-patients"),api("veterinary-records-v2"),api("veterinary-clinical")]);const [p,r,e]=results;if(p.status==="fulfilled")setPatients(p.value.patients||[]);if(r.status==="fulfilled")setRecords(r.value.records||[]);if(e.status==="fulfilled")setEntries(e.value.entries||[]);const failure=results.find(x=>x.status==="rejected");setError(failure?.status==="rejected"?(failure.reason instanceof Error?failure.reason.message:"Chargement impossible"):"");setLoading(false);};
  useEffect(()=>{void load();},[]);
+ // Synchronisation discrète entre collaborateurs : pas d'écran de chargement à chaque contrôle.
+ useEffect(()=>{
+  let running=false;
+  const sync=async()=>{
+   if(document.visibilityState!=="visible"||running)return;
+   running=true;
+   try{
+    const [p,r,e]=await Promise.allSettled([api("veterinary-patients"),api("veterinary-records-v2"),api("veterinary-clinical")]);
+    if(p.status==="fulfilled")setPatients(p.value.patients||[]);
+    if(r.status==="fulfilled")setRecords(r.value.records||[]);
+    if(e.status==="fulfilled")setEntries(e.value.entries||[]);
+   }finally{running=false;}
+  };
+  const timer=window.setInterval(()=>{void sync();},5000);
+  const onVisible=()=>{if(document.visibilityState==="visible")void sync();};
+  document.addEventListener("visibilitychange",onVisible);
+  return()=>{window.clearInterval(timer);document.removeEventListener("visibilitychange",onVisible);};
+ },[]);
  useEffect(()=>{let active=true;let token="";try{token=JSON.parse(localStorage.getItem("sb-pvahrnrtivzbkipborcd-auth-token")||"{}").access_token||""}catch{}if(!token)return;patients.filter(p=>p.photo_path).forEach(p=>fetch(root+"veterinary-patients?photo="+encodeURIComponent(p.id),{headers:{Authorization:"Bearer "+token}}).then(r=>r.ok?r.json():null).then(d=>{if(active&&d?.url)setPhotos(x=>({...x,[p.id]:d.url}));}).catch(()=>{}));return()=>{active=false};},[patients]);
  const patient=patients.find(p=>p.id===selected);
  const patientRecords=useMemo(()=>records.filter(r=>r.patient_id===selected).sort((a,b)=>b.consultation_at.localeCompare(a.consultation_at)),[records,selected]);
